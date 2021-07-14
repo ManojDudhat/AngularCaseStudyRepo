@@ -1,0 +1,12 @@
+<div style="text-align:center">
+  <h1>
+    {{ title }}!
+  </h1>
+  <div *ngIf="!showSignoutLink">
+    Below Login details: <br/>
+
+    Username: fis,   Password: fis123 => Only have access to Welcome tab. No access to Employee tab <br/>
+    Username: admin, Password: fis123 => Access to both Welcome and Employee tabs.
+  </div>
+  <a href="" (click)="signout()" *ngIf="showSignoutLink">Sign Out</a>
+</div>

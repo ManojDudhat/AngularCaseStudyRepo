@@ -1,0 +1,84 @@
+<app-header-component></app-header-component>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/welcome">Welcome</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" routerLink="/employee">Employee</a>
+  </li>
+</ul>
+
+<div class="container-lg">
+  <div class="table-responsive">
+      <div class="table-wrapper">
+          <div class="table-title">
+              <div class="row">
+                  <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div>
+                  <div class="col-sm-4">
+                      <button type="button" class="btn btn-info add-new" (click)="isShowAddRow()"><i class="fa fa-plus" ></i> Add New</button>
+                  </div>
+              </div>
+          </div>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>E-Number</th>
+                      <th>Location</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let employee of employees;let indexOfelement=index;">
+                      <td>{{employee.name}}</td>
+                      <td>{{employee.enumber}}</td>
+                      <td>{{employee.location}}</td>
+                      <td>
+                          <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" (click)="EditEmployee(indexOfelement)">E</i></a>
+                          <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons" (click)="deleteEmployee(indexOfelement)">&#xE872;</i></a>
+                      </td>
+                  </tr>
+                  <tr *ngIf="showAddRow" [formGroup]="addEmpForm">
+
+                    <td><input type="text" class="form-control" formControlName="addName" name="Name" id="Name" [(ngModel)]="addName" [ngClass]="{ 'is-invalid': addf.addName.errors }" ></td>
+                    <td><input type="text" class="form-control" formControlName="addEnumber" name="Enum" id="Enum" [(ngModel)]="addEnumber" [ngClass]="{ 'is-invalid': addf.addEnumber.errors }" ></td>
+                    <td><input type="text" class="form-control" formControlName="addLocation" name="location" id="location" [(ngModel)]="addLocation" [ngClass]="{ 'is-invalid': addf.addLocation.errors }" ></td>
+
+                    <td>
+                      <a class="edit" title="Add" data-toggle="tooltip"><i class="material-icons" (click)="AddEmployee()">A</i></a>
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+
+  </div>
+
+    <div [formGroup]="empForm" *ngIf="showEditPanel">
+      <div class="form-group">
+          <label for="editName">Name</label>
+          <input type="text" formControlName="editName" [(ngModel)]="editName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.editName.errors }" />
+          <div *ngIf="submitted && f.editName.errors" class="invalid-feedback">
+              <div *ngIf="f.editName.errors.required">Name is required</div>
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="editENum">E Number</label>
+          <input type="text" formControlName="editENum" [(ngModel)]="editENum" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.editENum.errors }" />
+          <div *ngIf="submitted && f.editENum.errors" class="invalid-feedback">
+              <div *ngIf="f.editENum.errors.required">E Number is required</div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="editLocation">E Number</label>
+        <input type="text" formControlName="editLocation" [(ngModel)]="editLocation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.editLocation.errors }" />
+        <div *ngIf="submitted && f.editLocation.errors" class="invalid-feedback">
+            <div *ngIf="f.editLocation.errors.required">Location is required</div>
+        </div>
+    </div>
+
+    <button type="submit" (click)="saveEmployee()">Save</button>
+  </div>
+
+</div>
